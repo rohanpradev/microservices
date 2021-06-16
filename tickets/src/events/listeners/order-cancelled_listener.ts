@@ -1,0 +1,28 @@
+import { Listener, OrderCancelledEvent, Subjects } from '@grider-courses/common';
+import { Message } from 'node-nats-streaming';
+import Ticket from '../../models/ticket_model';
+import { TicketUpdatedPublisher } from '../publishers';
+import { queueGroupName } from './queueGroupName';
+
+export class OrderCancelledListener extends Listener<OrderCancelledEvent> {
+  readonly subject = Subjects.OrderCancelled;
+  queueGroupName = queueGroupName;
+
+  async onMessage(data: OrderCancelledEvent['data'], msg: Message) {
+    const ticket = await Ticket.findById(data.ticket.id);
+    if (!ticket) throw new Error('ticket not found!');
+    ticket.set({ orderId: undefined });
+    await ticket.save();
+    await new TicketUpdatedPublisher(this.client).publish({
+      id: ticket.id,
+      serial: 1,
+      userId: ticket.userId,
+      title: ticket.title,
+      price: ticket.price,
+      version: ticket.version,
+      orderId: ticket.orderId,
+      // status?: TicketStatus | undefined;
+    });
+    msg.ack();
+  }
+}

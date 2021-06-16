@@ -1,0 +1,20 @@
+.heading {
+  margin-bottom: 35px;
+}
+
+.form {
+  height: calc(100vh - 110px);
+  display: flex;
+  flex-direction: column;
+  justify-content: center;
+  align-items: center;
+  padding: 15px;
+}
+
+.form > div {
+  min-width: 30%;
+}
+
+.form ul {
+  list-style: none;
+}
