@@ -5,13 +5,13 @@
 ![](https://www.nginx.com/wp-content/uploads/2015/11/Microservices-Cubes-300x300-PMS355.png)
 
 
-###About
+### About
 
 > This is a microservices based project which handles tickets. The tech stack includes  
 node js, mongoDB, NATS streaming server, redis and Next js.  
 
 
-###Installation
+### Installation
 You need to have docker and kubernetes in your system to run this project.
 
 Make sure to install node modules in all subdirectories using
@@ -26,4 +26,4 @@ In the main folder make sure to run
 
 Check [localhost:3000](http://localhost:3000) to see the magic appear.
 
-###End
+### End
